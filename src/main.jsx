@@ -8,6 +8,11 @@ import Home from './Home/Home.jsx';
 import MainLayout from './Layout/MainLayout.jsx';
 import AvailableFoods from './Food/AvailableFoods.jsx';
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+AOS.init();
+
 const router = createBrowserRouter([
   {
     path: "/",

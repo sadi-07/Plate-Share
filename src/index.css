@@ -3,9 +3,144 @@
   themes: all;
 }
 
+
+@tailwind utilities;
+
+
+@import "swiper/css";
+@import "swiper/css/pagination";
+@import "swiper/css/autoplay";
+
+
 body {
   font-family: 'Poppins', sans-serif;
 }
 body p{
   font-family: 'Inter', sans-serif;
+}
+
+.btn {
+  @apply bg-[#247dc2] hover:bg-[#1b67a1] text-white rounded-lg text-lg font-semibold border-none shadow-none;
+}
+
+
+/* ===============================
+   Color Theme
+================================= */
+
+/* Background Colors */
+.bg-primary {
+  background-color: #247DC2;
+}
+
+.bg-secondary {
+  background-color: #64748B;
+}
+
+.bg-accent {
+  background-color: #10B981;
+}
+
+.bg-light {
+  background-color: #F3F4F6; 
+}
+
+.bg-dark {
+  background-color: #0F172A; 
+}
+
+
+.text-primary {
+  color: #247DC2;
+}
+
+.text-secondary {
+  color: #64748B;
+}
+
+.text-accent {
+  color: #10B981;
+}
+
+.text-light {
+  color: #F3F4F6;
+}
+
+.text-dark {
+  color: #0F172A;
+}
+
+
+.bg-primary-hover:hover {
+  background-color: #1B5E8A;
+}
+
+.bg-secondary-hover:hover {
+  background-color: #475569;
+}
+
+.bg-accent-hover:hover {
+  background-color: #0F9A6D;
+}
+
+.border-primary {
+  border: 1px solid #247DC2;
+}
+
+.border-secondary {
+  border: 1px solid #64748B;
+}
+
+.border-accent {
+  border: 1px solid #10B981;
+}
+
+
+/* ===============================
+   Text Sizing
+================================= */
+
+/* Title - largest, for main pages */
+.text-title {
+  font-size: 2.5rem;   
+  font-weight: 700;    
+  line-height: 1.2;
+}
+
+/* Heading - section headings */
+.text-heading {
+  font-size: 1.875rem; 
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Paragraph - normal body text */
+.text-paragraph {
+  font-size: 1rem;     
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Medium text - slightly smaller, for labels/buttons */
+.text-medium {
+  font-size: 0.875rem; 
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Small text - for captions, fine print */
+.text-small {
+  font-size: 0.75rem;  
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+
+@media (max-width: 768px) {
+  .text-title {
+    font-size: 2rem; 
+  }
+  .text-heading {
+    font-size: 1.5rem; 
+  }
 }
