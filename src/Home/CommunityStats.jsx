@@ -38,9 +38,10 @@ const CommunityStats = () => {
   );
 
   return (
-    <section className="px-6 py-20">
+    <div>
+        <section className="px-6 py-20">
       <h2
-        data-aos="fade-up"
+        //data-aos="fade-up"
         className="text-4xl md:text-5xl font-extrabold text-center text-primary mb-12">
         Community Impact
       </h2>
@@ -63,6 +64,7 @@ const CommunityStats = () => {
         ))}
       </div>
     </section>
+    </div>
   );
 };
 

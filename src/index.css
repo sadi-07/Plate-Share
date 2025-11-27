@@ -20,7 +20,7 @@ body p{
 }
 
 .btn {
-  @apply bg-[#247dc2] hover:bg-[#1b67a1] text-white rounded-lg text-lg font-semibold border-none shadow-none;
+  @apply bg-[#247dc2] hover:bg-[#1E2939] text-white rounded-lg text-lg font-semibold border-none shadow-none;
 }
 
 

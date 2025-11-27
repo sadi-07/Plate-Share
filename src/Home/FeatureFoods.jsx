@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 const FeatureFoods = () => {
     return (
         <div>
-            <h2 className="text-4xl md:text-6xl font-extrabold text-center text-primary">Featured Foods</h2>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-center text-primary">Featured Foods</h2>
             
             <div></div>
 

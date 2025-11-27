@@ -36,7 +36,7 @@ const HowItWorks = () => {
         How <span className='text-primary'>PlateShare</span> Works
       </motion.h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+      <div data-aos="fade-up" className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
         {steps.map((step, index) => (
           <motion.div
             key={index}

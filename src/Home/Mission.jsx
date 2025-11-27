@@ -9,7 +9,7 @@ const Mission = () => {
   });
 
   return (
-    <section className="px-6 py-20 bg-white dark:bg-gray-900 rounded-2xl">
+    <section data-aos="zoom-in" className="px-6 py-20 bg-white dark:bg-gray-900 rounded-2xl">
       <animated.div style={fadeUp} className="max-w-4xl mx-auto text-center">
         <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-6">
           Our Mission
