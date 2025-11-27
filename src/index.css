@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: all;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+body p{
+  font-family: 'Inter', sans-serif;
+}
