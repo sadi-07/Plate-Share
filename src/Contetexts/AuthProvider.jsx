@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile
 } from "firebase/auth";
 import app from "../../firebase.config";
 import toast from "react-hot-toast";
@@ -15,70 +16,71 @@ import Loading from "../Componennts/Loading";
 export const AuthContext = createContext();
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
-googleProvider.addScope("profile");
-googleProvider.addScope("email");
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Google Login
-  const GUser = () => {
+  // CREATE USER (email + password)
+  const createUser = async (email, password) => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider)
-      .catch((error) => {
-        setLoading(false);
-        throw error;
-      });
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    return result;
   };
 
-  // Register user
-  const createUser = (email, password) => {
-    setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
+  // UPDATE USER PROFILE (name + photo)
+  const updateUserProfile = async (name, photoURL) => {
+    if (!auth.currentUser) return;
+
+    await updateProfile(auth.currentUser, { displayName: name, photoURL });
+    await auth.currentUser.reload();
+
+    setUser({ ...auth.currentUser });
   };
 
-  // Email Login
-  const logInUser = (email, password) => {
+  // GOOGLE LOGIN
+  const GUser = async () => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    const result = await signInWithPopup(auth, googleProvider);
+    setUser(result.user);
+    setLoading(false);
+    return result;
   };
 
-  // Logout
-  const removeUser = () => {
+  // LOGIN
+  const logInUser = async (email, password) => {
     setLoading(true);
-    return signOut(auth)
-      .then(() => {
-        toast.success("Logout Successful!");
-      })
-      .catch(() => {
-        toast.error("Logout Failed!");
-      });
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    setUser(result.user);
+    setLoading(false);
+    return result;
   };
 
-  // Track Auth State Changes
+  // LOGOUT
+  const removeUser = async () => {
+    setLoading(true);
+    await signOut(auth);
+    setUser(null);
+    toast.success("Logout successful!");
+    setLoading(false);
+  };
+
+  // ON AUTH CHANGE
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsub = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
     });
-
-    return () => unsubscribe();
+    return () => unsub();
   }, []);
 
-  const authData = {
-    user,
-    setUser,
-    createUser,
-    removeUser,
-    logInUser,
-    loading,
-    setLoading,
-    GUser,
-  };
-
   return (
-    <AuthContext.Provider value={authData}>
+    <AuthContext.Provider value={{
+      user, setUser,
+      createUser, updateUserProfile,
+      GUser, logInUser, removeUser,
+      loading, setLoading
+    }}>
       {loading ? <Loading /> : children}
     </AuthContext.Provider>
   );

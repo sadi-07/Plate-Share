@@ -9,7 +9,7 @@ import { AuthContext } from "../Contetexts/AuthProvider";
 import toast from "react-hot-toast";
 
 const Register = () => {
-    const { createUser, GUser, setLoading } = useContext(AuthContext);
+    const { createUser, updateUserProfile, GUser, setLoading } = useContext(AuthContext);
 
     const [showPass, setShowPass] = useState(false);
     const [name, setName] = useState("");
@@ -35,32 +35,28 @@ const Register = () => {
         return err.length === 0;
     };
 
-    // ● FIXED REGISTER FUNCTION
+    // REGISTER USER
     const handleRegister = async (e) => {
-        e.preventDefault();
-        if (!validatePassword()) return;
+    e.preventDefault();
+    if (!validatePassword()) return;
 
-        try {
-            setLoading(true);
+    try {
+        setLoading(true);
+        const result = await createUser(email, pass);
 
-            const result = await createUser(email, pass);
+        // ✔ ONLY profile update happens here
+        await updateUserProfile(name, photo);
 
-            // ● IMPORTANT → correct way to update
-            await updateProfile(result.user, {
-                displayName: name,
-                photoURL: photo,
-            });
+        toast.success("Account created successfully!");
+        navigate("/");
+    } catch (err) {
+        toast.error(err.message);
+    } finally {
+        setLoading(false);
+    }
+};
 
-            toast.success("Account created successfully!");
-            navigate("/");
-        } catch (err) {
-            toast.error(err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    // ● FIXED GOOGLE LOGIN
+    // GOOGLE LOGIN
     const handleGoogle = async () => {
         try {
             setLoading(true);
