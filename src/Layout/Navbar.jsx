@@ -30,7 +30,7 @@ const Navbar = () => {
         {({ active }) => <Link to="/addFood" className={`${active ? "bg-gray-700/40" : ""} group flex rounded-md w-full px-4 py-2 text-sm text-gray-300`}>Add Food</Link>}
       </Menu.Item>
       <Menu.Item>
-        {({ active }) => <Link to="/manageMyFoods" className={`${active ? "bg-gray-700/40" : ""} group flex rounded-md w-full px-4 py-2 text-sm text-gray-300`}>Manage My Foods</Link>}
+        {({ active }) => <Link to="/myFoods" className={`${active ? "bg-gray-700/40" : ""} group flex rounded-md w-full px-4 py-2 text-sm text-gray-300`}>Manage My Foods</Link>}
       </Menu.Item>
       <Menu.Item>
         {({ active }) => <Link to="/myFoodRequests" className={`${active ? "bg-gray-700/40" : ""} group flex rounded-md w-full px-4 py-2 text-sm text-gray-300`}>My Food Requests</Link>}

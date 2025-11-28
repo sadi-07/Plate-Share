@@ -28,7 +28,7 @@ const Banner = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center bg-black/40 px-6"
+        className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center bg-black/50 px-6"
       >
         <motion.h1
           initial={{ opacity: 0, y: 60 }}
@@ -43,9 +43,9 @@ const Banner = () => {
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-lg md:text-xl text-white/90 max-w-2xl mb-6"
+          className="text-lg md:text-xl font-semibold text-white/90 max-w-2xl mb-6"
         >
-          PlateShare connects people who have surplus food with those who need it most.
+          PlateShare connects people who have surplus food with those who need it most
         </motion.p>
 
         <Link

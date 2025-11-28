@@ -14,6 +14,12 @@ import Login from './Auth/Login.jsx';
 import Register from './Auth/Register.jsx';
 import AuthProvider from './Contetexts/AuthProvider.jsx';
 import { Toaster } from 'react-hot-toast';
+import Error404 from './Error/Error404.jsx';
+import PrivateRoute from './Routes/PrivateRoute.jsx';
+import FoodDetails from './Food/FoodDetails.jsx';
+import MyFoods from './Food/MyFoods.jsx';
+import AddFood from './Food/AddFood.jsx';
+import MyFoodRequest from './Food/MyFoodRequest.jsx';
 
 AOS.init();
 
@@ -38,6 +44,43 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>
       },
+      {
+        path: "/addFood",
+        element: (
+          <PrivateRoute>
+            <AddFood />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/myFoods",
+        element: (
+          <PrivateRoute>
+            <MyFoods />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/food/:id",
+        element: (
+          <PrivateRoute>
+            <FoodDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/myFoodRequests",
+        element: (
+          <PrivateRoute>
+            <MyFoodRequest />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "*",
+        element: <Error404></Error404>,
+      },
+
     ]
   },
 ]);
