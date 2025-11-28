@@ -2,27 +2,15 @@ import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { updateProfile } from "firebase/auth";
 import {
-    Eye,
-    EyeOff,
-    Mail,
-    Lock,
-    User,
-    Image as ImageIcon,
+    Eye, EyeOff, Mail, Lock, User, Image as ImageIcon
 } from "lucide-react";
 import { Link, useNavigate } from "react-router";
-
-// ⭐ NEW EDIT: import AuthContext
 import { AuthContext } from "../Contetexts/AuthProvider";
-
-// ⭐ NEW EDIT: import toast
 import toast from "react-hot-toast";
 
 const Register = () => {
-    // ⭐ NEW EDIT: get auth functions
-    const { createUser, setUser, GUser, setLoading } =
-        useContext(AuthContext);
+    const { createUser, GUser, setLoading } = useContext(AuthContext);
 
-    // form states
     const [showPass, setShowPass] = useState(false);
     const [name, setName] = useState("");
     const [photo, setPhoto] = useState("");
@@ -37,27 +25,19 @@ const Register = () => {
         visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
     };
 
-    // Password validation
+    // Password Validation
     const validatePassword = () => {
         const err = [];
-
-        if (!/[A-Z]/.test(pass))
-            err.push("Must contain at least one Uppercase letter.");
-        if (!/[a-z]/.test(pass))
-            err.push("Must contain at least one Lowercase letter.");
-        if (pass.length < 6)
-            err.push("Password must be at least 6 characters long.");
-
+        if (!/[A-Z]/.test(pass)) err.push("At least 1 uppercase letter required.");
+        if (!/[a-z]/.test(pass)) err.push("At least 1 lowercase letter required.");
+        if (pass.length < 6) err.push("Password must be at least 6 characters.");
         setErrors(err);
         return err.length === 0;
     };
 
-    // ⭐ NEW EDIT: FULL Firebase Register Logic
-
-
+    // ● FIXED REGISTER FUNCTION
     const handleRegister = async (e) => {
         e.preventDefault();
-
         if (!validatePassword()) return;
 
         try {
@@ -65,19 +45,13 @@ const Register = () => {
 
             const result = await createUser(email, pass);
 
-            // ⭐ NEW: use modular updateProfile
+            // ● IMPORTANT → correct way to update
             await updateProfile(result.user, {
                 displayName: name,
                 photoURL: photo,
             });
 
-            setUser({
-                ...result.user,
-                displayName: name,
-                photoURL: photo,
-            });
-
-            toast.success("Account Created Successfully!");
+            toast.success("Account created successfully!");
             navigate("/");
         } catch (err) {
             toast.error(err.message);
@@ -86,15 +60,14 @@ const Register = () => {
         }
     };
 
-
-    // ⭐ NEW EDIT: Google Register/Login
+    // ● FIXED GOOGLE LOGIN
     const handleGoogle = async () => {
         try {
             setLoading(true);
             await GUser();
             toast.success("Logged in with Google!");
             navigate("/");
-        } catch (err) {
+        } catch {
             toast.error("Google Login Failed!");
         } finally {
             setLoading(false);
@@ -118,19 +91,10 @@ const Register = () => {
                     Create an Account
                 </motion.h2>
 
-                {/* FORM */}
                 <form onSubmit={handleRegister}>
-                    {/* Name */}
-                    <motion.div
-                        variants={fadeUp}
-                        initial="hidden"
-                        animate="visible"
-                        transition={{ delay: 0.2 }}
-                        className="mb-5"
-                    >
-                        <label className="text-gray-700 dark:text-gray-300 font-medium">
-                            Full Name
-                        </label>
+                    {/* FULL NAME */}
+                    <motion.div variants={fadeUp} initial="hidden" animate="visible" transition={{ delay: 0.2 }} className="mb-5">
+                        <label className="text-gray-700 dark:text-gray-300 font-medium">Full Name</label>
                         <div className="relative mt-2">
                             <User className="absolute left-3 top-3 text-gray-400" size={20} />
                             <input
@@ -144,22 +108,11 @@ const Register = () => {
                         </div>
                     </motion.div>
 
-                    {/* Photo URL */}
-                    <motion.div
-                        variants={fadeUp}
-                        initial="hidden"
-                        animate="visible"
-                        transition={{ delay: 0.28 }}
-                        className="mb-5"
-                    >
-                        <label className="text-gray-700 dark:text-gray-300 font-medium">
-                            Photo URL
-                        </label>
+                    {/* PHOTO URL */}
+                    <motion.div variants={fadeUp} initial="hidden" animate="visible" transition={{ delay: 0.28 }} className="mb-5">
+                        <label className="text-gray-700 dark:text-gray-300 font-medium">Photo URL</label>
                         <div className="relative mt-2">
-                            <ImageIcon
-                                className="absolute left-3 top-3 text-gray-400"
-                                size={20}
-                            />
+                            <ImageIcon className="absolute left-3 top-3 text-gray-400" size={20} />
                             <input
                                 type="text"
                                 required
@@ -171,17 +124,9 @@ const Register = () => {
                         </div>
                     </motion.div>
 
-                    {/* Email */}
-                    <motion.div
-                        variants={fadeUp}
-                        initial="hidden"
-                        animate="visible"
-                        transition={{ delay: 0.35 }}
-                        className="mb-5"
-                    >
-                        <label className="text-gray-700 dark:text-gray-300 font-medium">
-                            Email Address
-                        </label>
+                    {/* EMAIL */}
+                    <motion.div variants={fadeUp} initial="hidden" animate="visible" transition={{ delay: 0.35 }} className="mb-5">
+                        <label className="text-gray-700 dark:text-gray-300 font-medium">Email Address</label>
                         <div className="relative mt-2">
                             <Mail className="absolute left-3 top-3 text-gray-400" size={20} />
                             <input
@@ -195,20 +140,11 @@ const Register = () => {
                         </div>
                     </motion.div>
 
-                    {/* Password */}
-                    <motion.div
-                        variants={fadeUp}
-                        initial="hidden"
-                        animate="visible"
-                        transition={{ delay: 0.45 }}
-                        className="mb-5"
-                    >
-                        <label className="text-gray-700 dark:text-gray-300 font-medium">
-                            Password
-                        </label>
+                    {/* PASSWORD */}
+                    <motion.div variants={fadeUp} initial="hidden" animate="visible" transition={{ delay: 0.45 }} className="mb-5">
+                        <label className="text-gray-700 dark:text-gray-300 font-medium">Password</label>
                         <div className="relative mt-2">
                             <Lock className="absolute left-3 top-3 text-gray-400" size={20} />
-
                             <input
                                 type={showPass ? "text" : "password"}
                                 required
@@ -217,7 +153,6 @@ const Register = () => {
                                 placeholder="Enter your password"
                                 className="w-full pl-10 pr-12 py-3 rounded-lg border dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-primary"
                             />
-
                             <button
                                 type="button"
                                 onClick={() => setShowPass(!showPass)}
@@ -228,21 +163,16 @@ const Register = () => {
                         </div>
                     </motion.div>
 
-                    {/* Password Errors */}
+                    {/* PASSWORD ERRORS */}
                     {errors.length > 0 && (
-                        <motion.ul
-                            variants={fadeUp}
-                            initial="hidden"
-                            animate="visible"
-                            className="text-red-500 text-sm mb-3 pl-2 space-y-1"
-                        >
+                        <motion.ul variants={fadeUp} initial="hidden" animate="visible" className="text-red-500 text-sm mb-3 pl-2 space-y-1">
                             {errors.map((err, i) => (
                                 <li key={i}>• {err}</li>
                             ))}
                         </motion.ul>
                     )}
 
-                    {/* Register Button */}
+                    {/* REGISTER BUTTON */}
                     <motion.button
                         variants={fadeUp}
                         initial="hidden"
@@ -255,16 +185,14 @@ const Register = () => {
                     </motion.button>
                 </form>
 
-                {/* Divider */}
+                {/* OR DIVIDER */}
                 <div className="flex items-center my-6 opacity-60">
                     <span className="flex-grow border-b dark:border-gray-700"></span>
-                    <span className="mx-3 text-gray-500 dark:text-gray-300 text-sm">
-                        OR
-                    </span>
+                    <span className="mx-3 text-gray-500 dark:text-gray-300 text-sm">OR</span>
                     <span className="flex-grow border-b dark:border-gray-700"></span>
                 </div>
 
-                {/* Google Login */}
+                {/* GOOGLE LOGIN */}
                 <motion.button
                     variants={fadeUp}
                     initial="hidden"
@@ -273,10 +201,7 @@ const Register = () => {
                     onClick={handleGoogle}
                     className="w-full py-3 flex items-center justify-center gap-3 bg-white rounded-lg shadow-md cursor-pointer"
                 >
-                    <img
-                        src="https://www.svgrepo.com/show/475656/google-color.svg"
-                        className="w-6 h-6"
-                    />{" "}
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-6 h-6" />
                     Continue with Google
                 </motion.button>
 

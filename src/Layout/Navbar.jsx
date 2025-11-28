@@ -6,12 +6,16 @@ import { AuthContext } from "../Contetexts/AuthProvider";
 
 const Navbar = () => {
   const { user, removeUser } = useContext(AuthContext);
+  console.log("Navbar user:", user);
+  console.log(user.photoURL);
+  console.log("NAVBAR PHOTO:", user?.photoURL);
+
 
   const handleLogout = () => {
     removeUser();
   };
 
-  // Common links
+
   const commonLinks = (
     <>
       <li>
@@ -28,7 +32,7 @@ const Navbar = () => {
         <NavLink
           to="/availableFoods"
           className={({ isActive }) =>
-            isActive ? "text-primary font-semibold" : "hover:text-primary"
+            isActive ? "text-primary font-semibold" : ""
           }
         >
           Available Foods
@@ -37,52 +41,51 @@ const Navbar = () => {
     </>
   );
 
-  // Private links for logged-in users
+  // Private dropdown items for logged-in users
   const privateLinks = (
     <>
       <Menu.Item>
         {({ active }) => (
           <Link
             to="/addFood"
-            className={`${
-              active ? "bg-gray-100 dark:bg-gray-700" : ""
-            } group flex rounded-md items-center w-full px-4 py-2 text-sm text-gray-900 dark:text-gray-100`}
+            className={`${active ? "bg-gray-700/40" : ""
+              } group flex rounded-md w-full px-4 py-2 text-sm text-gray-300`} // ★ FIX: text-gray-300
           >
             Add Food
           </Link>
         )}
       </Menu.Item>
+
       <Menu.Item>
         {({ active }) => (
           <Link
             to="/manageMyFoods"
-            className={`${
-              active ? "bg-gray-100 dark:bg-gray-700" : ""
-            } group flex rounded-md items-center w-full px-4 py-2 text-sm text-gray-900 dark:text-gray-100`}
+            className={`${active ? "bg-gray-700/40" : ""
+              } group flex rounded-md w-full px-4 py-2 text-sm text-gray-300`} // ★ FIX: text-gray-300
           >
             Manage My Foods
           </Link>
         )}
       </Menu.Item>
+
       <Menu.Item>
         {({ active }) => (
           <Link
             to="/myFoodRequests"
-            className={`${
-              active ? "bg-gray-100 dark:bg-gray-700" : ""
-            } group flex rounded-md items-center w-full px-4 py-2 text-sm text-gray-900 dark:text-gray-100`}
+            className={`${active ? "bg-gray-700/40" : ""
+              } group flex rounded-md w-full px-4 py-2 text-sm text-gray-300`} // ★ FIX: text-gray-300
           >
             My Food Requests
           </Link>
         )}
       </Menu.Item>
+
       <Menu.Item>
         {({ active }) => (
           <button
             onClick={handleLogout}
-            className={`${
-              active ? "bg-gray-100 dark:bg-gray-700" : ""
-            } group flex rounded-md items-center w-full px-4 py-2 text-sm text-red-600 dark:text-red-400`}
+            className={`${active ? "bg-gray-700/40" : ""
+              } group flex rounded-md w-full px-4 py-2 text-sm text-red-400`} // keep logout color visible but softer for contrast
           >
             Logout
           </button>
@@ -92,11 +95,12 @@ const Navbar = () => {
   );
 
   return (
-    <div className="shadow-sm w-full bg-base-200">
-      <div className="navbar max-w-7xl mx-auto px-4 md:px-0">
+    /* ★ FIX: make navbar sticky at top and above content with z-40 */
+    <div className="sticky top-0 z-40 shadow-sm w-full bg-base-200">
+      <div className="navbar max-w-7xl mx-auto px-4 lg:px-0">
         {/* Navbar Start */}
         <div className="navbar-start">
-          {/* Mobile Hamburger Dropdown */}
+          {/* Mobile LEFT dropdown (hamburger) */}
           <Menu as="div" className="relative lg:hidden">
             <Menu.Button className="btn btn-ghost">
               <svg
@@ -106,12 +110,7 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
               </svg>
             </Menu.Button>
 
@@ -124,25 +123,21 @@ const Navbar = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute left-0 mt-2 w-56 origin-top-left bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                <div className="px-1 py-2">
-                  {user && (
-                    <div className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                      Hello, {user.displayName || "User"}
-                    </div>
-                  )}
-                  {commonLinks}
-                  {!user && (
-                    <li className="mt-2">
-                      <Link
-                        to="/login"
-                        className="group flex rounded-md items-center w-full px-4 py-2 text-sm text-gray-900 dark:text-gray-100"
-                      >
-                        Login
+              {/* ★ FIX: dropdown text color set to text-gray-300 for items below (applied to inner text) */}
+              <Menu.Items className="absolute left-0 mt-2 w-56 origin-top-left bg-white dark:bg-gray-900 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+                <div className="px-2 py-3">
+                  <ul className="space-y-1">
+                    <li>
+                      <Link className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600" to="/">
+                        Home
                       </Link>
                     </li>
-                  )}
-                  {user && privateLinks}
+                    <li>
+                      <Link className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600" to="/availableFoods">
+                        Available Foods
+                      </Link>
+                    </li>
+                  </ul>
                 </div>
               </Menu.Items>
             </Transition>
@@ -155,50 +150,72 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Navbar Center */}
+        {/* Navbar Center (Desktop only) */}
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 text-lg text-gray-600 gap-8">
+          <ul className="menu menu-horizontal px-1 text-lg font-semibold text-gray-700 gap-8">
             {commonLinks}
           </ul>
         </div>
 
-        {/* Navbar End */}
-        <div className="navbar-end hidden lg:flex">
+        {/* Navbar End (Profile dropdown on right) */}
+        <div className="navbar-end">
           {!user ? (
-            <Link to="/login" className="btn px-8 py-2 hover:scale-105">
-              Log In
-            </Link>
+            <>
+              {/* Mobile profile dropdown when NOT logged in */}
+
+
+              {/* Desktop login button */}
+              <Link to="/login" className="btn px-6 py-2 lg:flex">
+                Log In
+              </Link>
+            </>
           ) : (
-            <Menu as="div" className="relative inline-block text-left">
-              <div>
-                <Menu.Button className="btn btn-ghost rounded-full w-12 h-12 overflow-hidden">
+            <>
+
+
+
+
+
+              {/* Mobile + Desktop profile dropdown WHEN LOGGED IN */}
+              <Menu as="div" className="relative">
+
+
+
+
+                <Menu.Button className="rounded-full w-12 h-12 overflow-hidden border border-primary">
                   <img
-                    src={user.photoURL || "/default-user.png"}
+                    src={user?.photoURL}
                     alt="User"
-                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover !brightness-100 !contrast-100"
                   />
                 </Menu.Button>
-              </div>
 
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                  <div className="px-1 py-2">
-                    <div className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                      Hello, {user.displayName || "User"}
+
+
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+                    <div className="px-4 py-3">
+                      {/* ★ FIX: greeting color */}
+                      <p className="text-xl font-semibold text-primary"><span className="text-base text-gray-300">Hello,</span> {user.displayName || "User"}</p>
                     </div>
-                    {privateLinks}
-                  </div>
-                </Menu.Items>
-              </Transition>
-            </Menu>
+
+                    <div className="px-1 py-2">
+                      {/* privateLinks uses text-gray-300 in the elements above */}
+                      {privateLinks}
+                    </div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+            </>
           )}
         </div>
       </div>
