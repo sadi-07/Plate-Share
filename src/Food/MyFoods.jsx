@@ -108,7 +108,7 @@ const ManageMyFoods = () => {
 
                   <td className="py-3 px-4 flex gap-3 mt-3">
                     <Link
-                      to={`/update-food/${food._id}`}
+                      to={`/updateFood/${food._id}`}
                       className="bg-primary text-white px-3 py-2 rounded-md text-base font-semibold transition"
                     >
                       Update

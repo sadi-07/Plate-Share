@@ -20,6 +20,7 @@ import FoodDetails from './Food/FoodDetails.jsx';
 import MyFoods from './Food/MyFoods.jsx';
 import AddFood from './Food/AddFood.jsx';
 import MyFoodRequest from './Food/MyFoodRequest.jsx';
+import UpdateFood from './Food/UpdateFood.jsx';
 
 AOS.init();
 
@@ -69,6 +70,14 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) => fetch(`http://localhost:3000/foods/${params.id}`)
+      },
+      {
+        path: "/updateFood/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateFood />
+          </PrivateRoute>
+        )
       },
       {
         path: "/myFoodRequests",
