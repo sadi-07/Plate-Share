@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import { AuthContext } from "../Contetexts/AuthProvider";
 import toast from "react-hot-toast";
 
@@ -10,17 +10,20 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  
+
   const { logInUser, GUser, setLoading } = useContext(AuthContext);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectPath = location.state?.from || "/";
+
 
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
 
-  
+
   const handleLogin = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -28,28 +31,29 @@ const Login = () => {
     logInUser(email, password)
       .then(() => {
         toast.success("Login Successful!");
-        navigate("/");
+        navigate(redirectPath, { replace: true });
       })
       .catch((err) => {
-        toast.error(err.message);
+        toast.error("Login Failed!");
       })
       .finally(() => setLoading(false));
+
   };
 
-  
+
   const handleGoogle = () => {
     setLoading(true);
 
     GUser()
       .then(() => {
         toast.success("Logged in successfully!");
-        navigate("/");
+        navigate(redirectPath, { replace: true });
       })
       .catch((err) => {
         toast.error("Google login failed!");
-        console.log(err);
       })
       .finally(() => setLoading(false));
+
   };
 
   return (
