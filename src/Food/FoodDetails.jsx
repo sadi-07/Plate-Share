@@ -1,16 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import { AuthContext } from "../Contetexts/AuthProvider";
 import Swal from "sweetalert2";
 
 const FoodDetails = () => {
   const details = useLoaderData();
-  console.log(details)
- 
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
+  const [showModal, setShowModal] = useState(false);
+
   const {
+    _id,
     food_name,
     food_image,
     food_quantity,
@@ -23,6 +24,7 @@ const FoodDetails = () => {
     food_status,
   } = details || {};
 
+  // Open modal only if logged in
   const handleRequestFood = () => {
     if (!user) {
       Swal.fire({
@@ -33,17 +35,69 @@ const FoodDetails = () => {
       return navigate("/login");
     }
 
-    Swal.fire({
-      icon: "success",
-      title: "Request Sent!",
-      text: "Your food request has been submitted.",
-    });
+    // Prevent requesting own food
+    if (user.email === donators_email) {
+      Swal.fire({
+        icon: "error",
+        title: "You cannot request your own food!",
+      });
+      return;
+    }
+
+    setShowModal(true);
+  };
+
+  // Submit form
+  const handleSubmitRequest = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const location = form.location.value;
+    const reason = form.reason.value;
+    const contact = form.contact.value;
+
+    const requestData = {
+      foodId: _id,
+      food_name,
+      requester_email: user.email,
+      requester_name: user.displayName,
+      requester_photo: user.photoURL,
+      location,
+      reason,
+      contact,
+      status: "pending",
+      createdAt: new Date(),
+    };
+
+    try {
+      const res = await fetch("http://localhost:3000/requests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
+      });
+
+      if (!res.ok) throw new Error("Request failed");
+
+      Swal.fire({
+        icon: "success",
+        title: "Request Sent!",
+        text: "Your food request has been submitted.",
+      });
+
+      setShowModal(false);
+      form.reset();
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Failed!",
+        text: "Something went wrong.",
+      });
+    }
   };
 
   return (
     <div className="max-w-5xl mx-auto p-4 ">
-
-      {/* Card */}
+      {/* Existing Card UI */}
       <div className="bg-primary/20 shadow-xl rounded-xl overflow-hidden border border-gray-200">
 
         {/* Image */}
@@ -70,7 +124,6 @@ const FoodDetails = () => {
 
           {/* Grid Info */}
           <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-
             <div className="bg-gray-50 p-4 rounded-lg border">
               <h3 className="font-semibold text-gray-700 mb-1">Food Quantity:</h3>
               <p className="text-gray-800">{food_quantity}</p>
@@ -90,10 +143,9 @@ const FoodDetails = () => {
               <h3 className="font-semibold text-gray-700 mb-1">Additional Notes:</h3>
               <p className="text-gray-800">{additional_notes}</p>
             </div>
-
           </div>
 
-          {/* Donator Section */}
+          {/* Donator */}
           <div className="p-5 bg-gradient-to-r from-gray-100 to-gray-200 rounded-xl flex items-center gap-4 border">
             <img
               src={donators_image}
@@ -106,7 +158,7 @@ const FoodDetails = () => {
             </div>
           </div>
 
-          {/* Button */}
+          {/* Request Button */}
           <button
             onClick={handleRequestFood}
             className="w-full btn text-white py-6 rounded-lg transition"
@@ -116,6 +168,63 @@ const FoodDetails = () => {
 
         </div>
       </div>
+
+      {/* ---------------- MODAL ---------------- */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
+          <div className="bg-white w-full max-w-lg p-6 rounded-lg shadow-xl">
+
+            <h2 className="text-2xl font-bold mb-4">Request Food</h2>
+
+            <form onSubmit={handleSubmitRequest} className="space-y-4">
+
+              <div>
+                <label className="font-semibold">Your Location</label>
+                <input
+                  type="text"
+                  name="location"
+                  required
+                  className="input input-bordered w-full"
+                />
+              </div>
+
+              <div>
+                <label className="font-semibold">Why do you need this food?</label>
+                <textarea
+                  name="reason"
+                  required
+                  className="textarea textarea-bordered w-full"
+                ></textarea>
+              </div>
+
+              <div>
+                <label className="font-semibold">Contact Number</label>
+                <input
+                  type="text"
+                  name="contact"
+                  required
+                  className="input input-bordered w-full"
+                />
+              </div>
+
+              <div className="flex justify-end gap-3 pt-3">
+                <button
+                  type="button"
+                  className="btn btn-ghost"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="btn btn-primary">
+                  Submit Request
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
