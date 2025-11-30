@@ -15,7 +15,15 @@ const Login = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  //const redirectPath = location.state? location.state : "/";
+  // const redirectPath = location.state?.from || "/";
+  
   const redirectPath = location.state?.from || "/";
+
+  console.log("location.state", location.state);
+  console.log("redirectpath", redirectPath);
+
+
 
 
   const fadeUp = {

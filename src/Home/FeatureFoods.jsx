@@ -35,13 +35,17 @@ const FeatureFoods = () => {
         return () => { cancelled = true; };
     }, []);
 
+    
+
     const handleViewDetails = (id) => {
-        if (!user) {
-            navigate("/login", { state: { from: location.pathname } });
-            return;
-        }
-        navigate(`/foods/${id}`);
-    };
+    if (!user) {
+        navigate("/login", { state: { from: `/foods/${id}` } });
+        return;
+    }
+    navigate(`/foods/${id}`);
+};
+
+    
 
     return (
         <div>

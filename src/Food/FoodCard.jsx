@@ -18,12 +18,9 @@ const FoodCard = ({ food }) => {
   } = food;
 
   const handleViewDetails = () => {
-    if (!user) {
-      navigate("/login");
-    } else {
       navigate(`/foods/${_id}`);
-    }
   };
+
 
   return (
     <div className="bg-primary/10 shadow-lg hover:scale-103 transition rounded-lg overflow-hidden">

@@ -7,13 +7,22 @@ const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const location = useLocation();
 
-  if (loading) return <Loading></Loading>;
+  if (loading) {
+    return <Loading></Loading>;
+  }
+
+  // if (user && user?.email) {
+  //   return children;
+  // }
 
   if (!user) {
     return <Navigate to="/login" state={{ from: location.pathname }} replace />;
   }
-
   return children;
+
+
+
+
 };
 
 export default PrivateRoute;
