@@ -25,7 +25,6 @@ const Register = () => {
         visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
     };
 
-    // Password Validation
     const validatePassword = () => {
         const err = [];
         if (!/[A-Z]/.test(pass)) err.push("At least 1 uppercase letter required.");
@@ -35,28 +34,23 @@ const Register = () => {
         return err.length === 0;
     };
 
-    // REGISTER USER
     const handleRegister = async (e) => {
-    e.preventDefault();
-    if (!validatePassword()) return;
+        e.preventDefault();
+        if (!validatePassword()) return;
 
-    try {
-        setLoading(true);
-        const result = await createUser(email, pass);
+        try {
+            setLoading(true);
+            const result = await createUser(email, pass);
+            await updateUserProfile(name, photo);
+            toast.success("Account created successfully!");
+            navigate("/");
+        } catch (err) {
+            toast.error(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        // ✔ ONLY profile update happens here
-        await updateUserProfile(name, photo);
-
-        toast.success("Account created successfully!");
-        navigate("/");
-    } catch (err) {
-        toast.error(err.message);
-    } finally {
-        setLoading(false);
-    }
-};
-
-    // GOOGLE LOGIN
     const handleGoogle = async () => {
         try {
             setLoading(true);
@@ -181,7 +175,6 @@ const Register = () => {
                     </motion.button>
                 </form>
 
-                {/* OR DIVIDER */}
                 <div className="flex items-center my-6 opacity-60">
                     <span className="flex-grow border-b dark:border-gray-700"></span>
                     <span className="mx-3 text-gray-500 dark:text-gray-300 text-sm">OR</span>

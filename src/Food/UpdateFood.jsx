@@ -5,21 +5,19 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
 const UpdateFood = () => {
-  const { id } = useParams(); // :id from route
+  const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-
   const [food, setFood] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
-  // Fetch food by id
   useEffect(() => {
     let mounted = true;
     const fetchFood = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:3000/foods/${id}`);
+        const res = await fetch(`https://plate-share-server-blue.vercel.app/foods/${id}`);
         if (!res.ok) throw new Error("Failed to load food.");
         const data = await res.json();
         if (mounted) setFood(data);
@@ -35,7 +33,6 @@ const UpdateFood = () => {
     return () => { mounted = false; };
   }, [id]);
 
-  // Ownership guard — make sure logged-in user is the donator
   useEffect(() => {
     if (!loading && food) {
       const ownerEmail = food.donators_email;
@@ -43,7 +40,7 @@ const UpdateFood = () => {
         Swal.fire({
           icon: "warning",
           title: "Not allowed",
-          text: "You are not allowed to edit this item. It belongs to another user.",
+          text: "You are not allowed to edit this item.",
           confirmButtonText: "Go Back",
         }).then(() => navigate("/myFoods"));
       }
@@ -59,7 +56,6 @@ const UpdateFood = () => {
     e.preventDefault();
     if (!food) return;
 
-    // basic validation
     if (!food.food_name || !food.food_image || !food.food_quantity || !food.pickup_location || !food.expire_date) {
       toast.error("Please fill required fields.");
       return;
@@ -67,7 +63,7 @@ const UpdateFood = () => {
 
     setSubmitting(true);
     try {
-      const res = await fetch(`http://localhost:3000/foods/${id}`, {
+      const res = await fetch(`https://plate-share-server-blue.vercel.app/foods/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -77,18 +73,15 @@ const UpdateFood = () => {
           pickup_location: food.pickup_location,
           expire_date: food.expire_date,
           additional_notes: food.additional_notes || "",
-          // keep donator fields unchanged for safety
         }),
       });
 
       const result = await res.json();
 
-      // backend may respond with modifiedCount or the updated doc — handle both
       if (res.ok && (result.modifiedCount === 1 || result.acknowledged)) {
         toast.success("Food updated successfully!");
         navigate("/myFoods");
       } else {
-        // if server returns the updated document
         toast.success("Food updated!");
         navigate("/myFoods");
       }
@@ -119,8 +112,7 @@ const UpdateFood = () => {
   return (
     <div className="max-w-3xl mx-auto p-6">
       <div className="bg-white shadow-2xl rounded-2xl overflow-hidden">
-        {/* header */}
-        <div className="p-6 bg-gradient-to-r from-primary/10 to-transparent">
+        <div className="p-6 bg-linear-to-r from-primary/10 to-transparent">
           <h1 className="text-2xl md:text-4xl font-bold text-primary">
             Update Food
           </h1>
@@ -130,7 +122,7 @@ const UpdateFood = () => {
         </div>
 
         <div className="p-6">
-          {/* preview top */}
+
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="w-full md:w-1/3 rounded-lg overflow-hidden">
               <img
@@ -148,7 +140,7 @@ const UpdateFood = () => {
             </div>
           </div>
 
-          {/* form */}
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">Food Name</label>

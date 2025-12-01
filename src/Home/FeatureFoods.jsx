@@ -19,7 +19,7 @@ const FeatureFoods = () => {
             try {
                 setLoading(true);
                 setErr(null);
-                const res = await fetch("http://localhost:3000/featuredFoods");
+                const res = await fetch("https://plate-share-server-blue.vercel.app/featuredFoods");
                 if (!res.ok) throw new Error("Failed to fetch featured foods");
                 const data = await res.json();
                 if (!cancelled) setItems(data);
@@ -57,7 +57,7 @@ const FeatureFoods = () => {
 
                 {loading && (
                     <div className="flex justify-center items-center h-40">
-                        <p className="text-gray-500">Loading featured foods…</p>
+                        <p className="text-2xl font-bold text-gray-500">Loading featured foods…</p>
                     </div>
                 )}
 

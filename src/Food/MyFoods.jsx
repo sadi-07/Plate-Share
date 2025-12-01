@@ -8,11 +8,10 @@ const ManageMyFoods = () => {
   const [myFoods, setMyFoods] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch ONLY logged-in user's foods
   useEffect(() => {
     if (!user) return;
 
-    fetch(`http://localhost:3000/myFoods/${user.email}`)
+    fetch(`https://plate-share-server-blue.vercel.app/myFoods/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setMyFoods(data);
@@ -20,7 +19,6 @@ const ManageMyFoods = () => {
       });
   }, [user]);
 
-  // Delete food item
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -32,7 +30,7 @@ const ManageMyFoods = () => {
       confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/foods/${id}`, {
+        fetch(`https://plate-share-server-blue.vercel.app/foods/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -62,7 +60,7 @@ const ManageMyFoods = () => {
 
       {myFoods.length === 0 && (
         <p className="text-lg text-center text-gray-500">
-          You haven’t added any foods yet.
+          You haven't added any foods yet.
         </p>
       )}
 

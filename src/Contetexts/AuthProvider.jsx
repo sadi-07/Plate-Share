@@ -21,20 +21,19 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // CREATE USER (email + password)
+  // CREATE USER
   const createUser = async (email, password) => {
     setLoading(true);
     const result = await createUserWithEmailAndPassword(auth, email, password);
     return result;
   };
 
-  // UPDATE USER PROFILE (name + photo)
+  
   const updateUserProfile = async (name, photoURL) => {
     if (!auth.currentUser) return;
 
     await updateProfile(auth.currentUser, { displayName: name, photoURL });
     await auth.currentUser.reload();
-
     setUser({ ...auth.currentUser });
   };
 

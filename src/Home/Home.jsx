@@ -8,7 +8,7 @@ import CommunityStats from './CommunityStats';
 const Home = () => {
     return (
         <div>
-            {/* <Banner></Banner> */}
+            <Banner></Banner>
             <FeatureFoods></FeatureFoods>
             <HowItWorks></HowItWorks>
             <Mission></Mission>

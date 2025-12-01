@@ -4,7 +4,6 @@ import FoodCard from './FoodCard';
 
 const AvailableFoods = () => {
     const foods = useLoaderData();
-    console.log(foods);
 
     return (
         <div>

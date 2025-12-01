@@ -24,7 +24,7 @@ const FoodCard = ({ food }) => {
 
   return (
     <div className="bg-primary/10 shadow-lg hover:scale-103 transition rounded-lg overflow-hidden">
-      {/* Image */}
+      
       <div className="h-48 w-full p-3 overflow-hidden">
         <img
           src={food_image}
@@ -33,11 +33,9 @@ const FoodCard = ({ food }) => {
         />
       </div>
 
-      {/* Card Info */}
       <div className="p-4 space-y-2">
         <h2 className="text-xl font-semibold">{food_name}</h2>
 
-        {/* Donator Info */}
         <div className="flex items-center gap-3">
           <img
             src={donators_image}

@@ -23,7 +23,6 @@ const Banner = () => {
   return (
     <section className="relative w-full h-[70vh] rounded-xl overflow-hidden mb-10">
 
-      {/* ---- Floating Content ---- */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -56,7 +55,6 @@ const Banner = () => {
         </Link>
       </motion.div>
 
-      {/* ---- Swiper Slider ---- */}
       <Swiper
         modules={[Autoplay, Pagination]}
         autoplay={{ delay: 2500, disableOnInteraction: false }}

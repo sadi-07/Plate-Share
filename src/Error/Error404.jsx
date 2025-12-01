@@ -6,7 +6,6 @@ const Error404 = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
       
-      {/* Animation */}
       <motion.img
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -15,8 +14,6 @@ const Error404 = () => {
         alt="404 Error"
         className="w-72 md:w-96 mb-6"
       />
-
-      {/* Text */}
       <motion.h1 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -35,7 +32,6 @@ const Error404 = () => {
         Oops! Looks like this page doesn't exist.
       </motion.p>
 
-      {/* Button */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

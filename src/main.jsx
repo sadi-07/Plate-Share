@@ -1,7 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import Home from './Home/Home.jsx';
@@ -36,7 +35,7 @@ const router = createBrowserRouter([
       {
         path: "/availableFoods",
         element: <AvailableFoods></AvailableFoods>,
-        loader: () => fetch('http://localhost:3000/foods')
+        loader: () => fetch('https://plate-share-server-blue.vercel.app/foods')
       },
       {
         path: "/login",
@@ -69,7 +68,7 @@ const router = createBrowserRouter([
             <FoodDetails />
           </PrivateRoute>
         ),
-        loader: ({ params }) => fetch(`http://localhost:3000/foods/${params.id}`)
+        loader: ({ params }) => fetch(`https://plate-share-server-blue.vercel.app/foods/${params.id}`)
       },
       {
         path: "/updateFood/:id",

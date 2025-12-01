@@ -9,28 +9,16 @@ const Login = () => {
   const [showPass, setShowPass] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-
   const { logInUser, GUser, setLoading } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const location = useLocation();
-  //const redirectPath = location.state? location.state : "/";
-  // const redirectPath = location.state?.from || "/";
-  
   const redirectPath = location.state?.from || "/";
-
-  console.log("location.state", location.state);
-  console.log("redirectpath", redirectPath);
-
-
-
 
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
-
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -45,7 +33,6 @@ const Login = () => {
         toast.error("Login Failed!");
       })
       .finally(() => setLoading(false));
-
   };
 
 
@@ -61,7 +48,6 @@ const Login = () => {
         toast.error("Google login failed!");
       })
       .finally(() => setLoading(false));
-
   };
 
   return (
@@ -81,7 +67,6 @@ const Login = () => {
           Welcome Back
         </motion.h2>
 
-        {/* FORM START */}
         <form onSubmit={handleLogin}>
           {/* Email */}
           <motion.div
@@ -150,13 +135,11 @@ const Login = () => {
             Login
           </motion.button>
         </form>
-        {/* FORM END */}
-
-        {/* Divider */}
+        
         <div className="flex items-center my-6 opacity-60">
-          <span className="flex-grow border-b"></span>
+          <span className="grow border-b"></span>
           <span className="mx-3 text-gray-500 dark:text-gray-300 text-sm">OR</span>
-          <span className="flex-grow border-b"></span>
+          <span className="grow border-b"></span>
         </div>
 
         {/* Google Login */}

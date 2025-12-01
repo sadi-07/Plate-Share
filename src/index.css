@@ -3,9 +3,7 @@
   themes: all;
 }
 
-
 @tailwind utilities;
-
 
 @import "swiper/css";
 @import "swiper/css/pagination";

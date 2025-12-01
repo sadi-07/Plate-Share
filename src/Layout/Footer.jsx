@@ -10,6 +10,7 @@ const Footer = () => {
         <div className=''>
             <div className='bg-primary'>
                 <footer className="footer sm:footer-horizontal text-gray-100 p-10 max-w-7xl mx-auto px-4 md:px-0">
+
                     <aside>
                         <img className='h-20 w-22' src={logo} alt="" />
                         <p className='text-4xl font-bold'>
@@ -18,6 +19,23 @@ const Footer = () => {
                             <span className='text-lg font-semibold'>Providing Foods to the needy since 2004</span>
                         </p>
                     </aside>
+
+                    <nav>
+                        <h3 className="text-2xl font-semibold text-gray-100">Quick Links</h3>
+                        <a className="link link-hover text-base">Home</a>
+                        <a className="link link-hover text-base">Available Foods</a>
+                        <a className="link link-hover text-base">My Foods</a>
+                        <a className="link link-hover text-base">Contact</a>
+                    </nav>
+
+                    <nav>
+                        <h3 className="text-2xl font-semibold text-gray-100">Support</h3>
+                        <a className="link link-hover text-base">FAQ</a>
+                        <a className="link link-hover text-base">Help Center</a>
+                        <a className="link link-hover text-base">Privacy Policy</a>
+                        <a className="link link-hover text-base">Terms of Service</a>
+                    </nav>
+
                     <nav>
                         <h3 className="text-2xl font-semibold text-gray-100">Social</h3>
                         <div className="grid grid-flow-col gap-6">
@@ -30,10 +48,17 @@ const Footer = () => {
                             <Link to="" className='text-4xl'>
                                 <BsTwitterX />
                             </Link>
+                            <Link to="" className='text-4xl'>
+                                <FaEarthAsia></FaEarthAsia>
+                            </Link>
                         </div>
                     </nav>
+
                 </footer>
-                    <h2 className='text-center pb-3 text-gray-200'>© 2025; All rights reserved by Khaled Mahmud Sadi</h2>
+
+                <h2 className='text-center pb-3 text-gray-200'>
+                    © 2025; All rights reserved by Khaled Mahmud Sadi
+                </h2>
             </div>
         </div>
     );

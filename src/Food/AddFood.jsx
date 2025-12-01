@@ -14,7 +14,7 @@ const AddFood = () => {
 
     const form = e.target;
     const food_name = form.food_name.value;
-    const food_image = form.food_image.value; // ⬅️ IMAGE LINK INPUT
+    const food_image = form.food_image.value;
     const food_quantity = form.food_quantity.value;
     const pickup_location = form.pickup_location.value;
     const expire_date = form.expire_date.value;
@@ -26,7 +26,6 @@ const AddFood = () => {
       return;
     }
 
-    // ⭐ FOOD DATA OBJECT
     const foodData = {
       food_name,
       food_image,
@@ -41,9 +40,8 @@ const AddFood = () => {
       created_at: new Date(),
     };
 
-    // ⭐ SEND TO BACKEND (MongoDB)
     try {
-      const res = await fetch("http://localhost:3000/foods", {
+      const res = await fetch("https://plate-share-server-blue.vercel.app/foods", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,12 +64,11 @@ const AddFood = () => {
 
   return (
     <div className="max-w-2xl mx-auto bg-primary/20 p-8 rounded-lg shadow-md mt-6">
-      <h2 className="text-4xl md:text-5xl font-extrabold mt-5 mb-10">
-                Add New Food</h2>
+      <h2 className="text-4xl md:text-5xl font-extrabold mt-5 mb-10 text-primary">
+        Add New Food</h2>
 
       <form onSubmit={handleAddFood} className="space-y-4">
 
-        {/* Food Name */}
         <div>
           <label className="font-semibold">Food Name</label>
           <input
@@ -82,7 +79,6 @@ const AddFood = () => {
           />
         </div>
 
-        {/* Food Image (LINK) */}
         <div>
           <label className="font-semibold">Food Image URL</label>
           <input
@@ -94,7 +90,6 @@ const AddFood = () => {
           />
         </div>
 
-        {/* Quantity */}
         <div>
           <label className="font-semibold">Food Quantity</label>
           <input
@@ -106,7 +101,6 @@ const AddFood = () => {
           />
         </div>
 
-        {/* Pickup Location */}
         <div>
           <label className="font-semibold">Pickup Location</label>
           <input
@@ -117,7 +111,6 @@ const AddFood = () => {
           />
         </div>
 
-        {/* Expire Date */}
         <div>
           <label className="font-semibold">Expire Date</label>
           <input
@@ -128,7 +121,6 @@ const AddFood = () => {
           />
         </div>
 
-        {/* Additional Notes */}
         <div>
           <label className="font-semibold">Additional Notes</label>
           <textarea
@@ -138,7 +130,6 @@ const AddFood = () => {
           ></textarea>
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           disabled={loading}
