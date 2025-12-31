@@ -1,4 +1,4 @@
-**Website Name:** # Plate Share
+# Plate Share
 
                 Share a Plate, Spread a Smile
 
