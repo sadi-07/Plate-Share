@@ -1,15 +1,21 @@
 **Website Name: Plate Share**
 
                 Share a Plate, Spread a Smile
+
+
+---
+
 **Website Overview**
 
 Plate Share is a full-stack web application aimed at reducing food waste by enabling users to share surplus food with those in need. The platform allows users to search, request, add, and receive food easily while promoting community support and sustainability.
 
-                
+---
+
 **Live URL:**
 
-~~ https://gorgeous-queijadas-1f02eb.netlify.app/
+[View Live Site](https://gorgeous-queijadas-1f02eb.netlify.app/)
 
+---
 
 **Features:**
 
@@ -23,6 +29,8 @@ Plate Share is a full-stack web application aimed at reducing food waste by enab
 
 5 => Help the needy by providing foods
 
+---
+
 **Technology Used**
   1. Javascript
   2. React
@@ -32,3 +40,5 @@ Plate Share is a full-stack web application aimed at reducing food waste by enab
   6. Tailwind
 
 **Dont Waste Food**
+
+---
