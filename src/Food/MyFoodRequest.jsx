@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Contetexts/AuthProvider";
+import Loading from "../Componennts/Loading";
 
 const MyFoodRequest = () => {
   const { user } = useContext(AuthContext);
@@ -31,7 +32,8 @@ const MyFoodRequest = () => {
       <h2 className="text-5xl font-bold mb-10 text-primary text-center">My Food Requests</h2>
 
       {loading ? (
-        <p>Loading...</p>
+        // <p>Loading...</p>
+        <Loading/>
       ) : myRequests.length === 0 ? (
         <p className="text-gray-600">You have not requested any foods yet.</p>
       ) : (
@@ -57,7 +59,7 @@ const MyFoodRequest = () => {
                     />
                     <div>
                       <p className="font-semibold">{req.food_name}</p>
-                      <p className="text-xs text-gray-500">{req.foodId}</p>
+                      {/* <p className="text-xs text-gray-500">{req.foodId}</p> */}
                     </div>
                   </td>
 

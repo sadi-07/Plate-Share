@@ -21,6 +21,11 @@ const Navbar = () => {
           Available Foods
         </NavLink>
       </li>
+      <li>
+        <NavLink to="/faqs" className={({ isActive }) => isActive ? "text-primary font-semibold" : ""}>
+          FAQs
+        </NavLink>
+      </li>
     </>
   );
 

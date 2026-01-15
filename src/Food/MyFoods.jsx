@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Contetexts/AuthProvider";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+import Loading from "../Componennts/Loading";
 
 const ManageMyFoods = () => {
   const { user } = useContext(AuthContext);
@@ -46,9 +47,10 @@ const ManageMyFoods = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-40">
-        <p className="text-xl font-semibold text-gray-600">Loading your foods...</p>
-      </div>
+      // <div className="flex justify-center items-center h-40">
+      //   <p className="text-xl font-semibold text-gray-600">Loading your foods...</p>
+      // </div>
+      <Loading/>
     );
   }
 
@@ -58,11 +60,6 @@ const ManageMyFoods = () => {
         Manage My Foods
       </h2>
 
-      {myFoods.length === 0 && (
-        <p className="text-lg text-center text-gray-500">
-          You haven't added any foods yet.
-        </p>
-      )}
 
       
       <div className="bg-white shadow-lg rounded-xl">
@@ -77,7 +74,6 @@ const ManageMyFoods = () => {
                 <th className="py-3 px-4 font-semibold text-gray-700">Actions</th>
               </tr>
             </thead>
-
             <tbody className="bg-primary/5">
               {myFoods.map((food) => (
                 <tr
@@ -122,10 +118,14 @@ const ManageMyFoods = () => {
                 </tr>
               ))}
             </tbody>
-
           </table>
         </div>
       </div>
+      {myFoods.length === 0 && (
+        <p className="text-xl font-semibold text-center text-gray-500 mt-10">
+          You haven't added any food yet.
+        </p>
+      )}
     </div>
   );
 };

@@ -20,6 +20,7 @@ import MyFoods from './Food/MyFoods.jsx';
 import AddFood from './Food/AddFood.jsx';
 import MyFoodRequest from './Food/MyFoodRequest.jsx';
 import UpdateFood from './Food/UpdateFood.jsx';
+import FAQ from './Home/FAQ.jsx';
 
 AOS.init();
 
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
         path: "/availableFoods",
         element: <AvailableFoods></AvailableFoods>,
         loader: () => fetch('https://plate-share-server-blue.vercel.app/foods')
+      },
+      {
+        path: "faqs",
+        element: <FAQ></FAQ>
       },
       {
         path: "/login",
