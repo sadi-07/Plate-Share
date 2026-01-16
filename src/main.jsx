@@ -20,7 +20,12 @@ import MyFoods from './Food/MyFoods.jsx';
 import AddFood from './Food/AddFood.jsx';
 import MyFoodRequest from './Food/MyFoodRequest.jsx';
 import UpdateFood from './Food/UpdateFood.jsx';
-import FAQ from './Home/FAQ.jsx';
+import FAQ from './Pages/FAQ.jsx';
+import About from './Pages/About.jsx';
+import { Contact } from 'lucide-react';
+import Privacy from './Pages/Privacy.jsx';
+import Support from './Pages/Support.jsx';
+import Blog from './Pages/Blog.jsx';
 
 AOS.init();
 
@@ -41,6 +46,22 @@ const router = createBrowserRouter([
       {
         path: "faqs",
         element: <FAQ></FAQ>
+      },
+      {
+        path: "about",
+        element: <About></About>
+      },
+      {
+        path: "blog",
+        element: <Blog></Blog>
+      },
+      {
+        path: "privacy",
+        element: <Privacy></Privacy>
+      },
+      {
+        path: "support",
+        element: <Support></Support>
       },
       {
         path: "/login",

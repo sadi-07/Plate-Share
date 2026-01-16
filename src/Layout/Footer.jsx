@@ -22,18 +22,23 @@ const Footer = () => {
 
                     <nav>
                         <h3 className="text-2xl font-semibold text-gray-100">Quick Links</h3>
-                        <a className="link link-hover text-base">Home</a>
-                        <a className="link link-hover text-base">Available Foods</a>
-                        <a className="link link-hover text-base">My Foods</a>
-                        <a className="link link-hover text-base">Contact</a>
+                        
+                        <Link to="/" className="link link-hover text-base">Home</Link>
+                        
+                        <Link to="/availableFoods" className="link link-hover text-base">Available Foods</Link>
+                        <Link to="/about" className="link link-hover text-base">About</Link>
+                        
                     </nav>
 
                     <nav>
                         <h3 className="text-2xl font-semibold text-gray-100">Support</h3>
-                        <a className="link link-hover text-base">FAQ</a>
-                        <a className="link link-hover text-base">Help Center</a>
-                        <a className="link link-hover text-base">Privacy Policy</a>
-                        <a className="link link-hover text-base">Terms of Service</a>
+                        
+                        <Link to="/faqs" className="link link-hover text-base">FAQs</Link>
+                        <Link to="/support" className="link link-hover text-base">Support</Link>
+                        <Link to="/privacy" className="link link-hover text-base">Privacy</Link>
+                        <Link to="/blog" className="link link-hover text-base">Blog</Link>
+
+                    
                     </nav>
 
                     <nav>
