@@ -143,43 +143,53 @@ const AvailableFoods = () => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-                <div className="flex justify-center items-center gap-2 mt-12">
+    <div className="flex justify-center items-center gap-2 mt-12">
 
-                    {/* Prev */}
-                    <button
-                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                        disabled={currentPage === 1}
-                        className="btn btn-lg bg-secondary"
-                    >
-                        Prev
-                    </button>
+        {/* Prev */}
+        <button
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className={`btn btn-lg btn-secondary ${
+                currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
+            }`}
+        >
+            Prev
+        </button>
 
-                    {/* Page Numbers */}
-                    {[...Array(totalPages).keys()].map(num => (
-                        <button
-                            key={num}
-                            onClick={() => setCurrentPage(num + 1)}
-                            className={`btn btn-lg ${currentPage === num + 1 ? "btn-primary" : "btn-secondary"
-                                }`}
-                        >
-                            {num + 1}
-                        </button>
-                    ))}
+        {/* Page Numbers */}
+        {[...Array(totalPages).keys()].map(num => {
+            const page = num + 1;
+            const isActive = currentPage === page;
 
-                    {/* Next */}
-                    <button
-                        onClick={() =>
-                            setCurrentPage(prev => Math.min(prev + 1, totalPages))
-                        }
-                        disabled={currentPage === totalPages}
-                        className="btn btn-lg btn-secondary"
-                        
-                    >
-                        Next
-                    </button>
+            return (
+                <button
+                    key={num}
+                    onClick={() => setCurrentPage(page)}
+                    className={`btn btn-lg ${
+                        isActive ? "bg-primary" : "bg-secondary"
+                    }`}
+                >
+                    {page}
+                </button>
+            );
+        })}
 
-                </div>
-            )}
+        {/* Next */}
+        <button
+            onClick={() =>
+                setCurrentPage(prev => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className={`btn btn-lg btn-secondary ${
+                currentPage === totalPages ? "cursor-not-allowed opacity-50" : ""
+            }`}
+        >
+            Next
+        </button>
+
+    </div>
+)}
+
 
         </div>
     );
