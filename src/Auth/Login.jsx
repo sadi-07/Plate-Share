@@ -4,37 +4,41 @@ import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router";
 import { AuthContext } from "../Contetexts/AuthProvider";
 import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
   const [showPass, setShowPass] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const { logInUser, GUser, setLoading } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const location = useLocation();
   const redirectPath = location.state?.from || "/";
 
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({ mode: "onChange" });
+
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const handleLogin = (data) => {
     setLoading(true);
 
-    logInUser(email, password)
+    logInUser(data.email, data.password)
       .then(() => {
         toast.success("Login Successful!");
         navigate(redirectPath, { replace: true });
       })
-      .catch((err) => {
+      .catch(() => {
         toast.error("Login Failed!");
       })
       .finally(() => setLoading(false));
   };
-
 
   const handleGoogle = () => {
     setLoading(true);
@@ -44,10 +48,16 @@ const Login = () => {
         toast.success("Logged in successfully!");
         navigate(redirectPath, { replace: true });
       })
-      .catch((err) => {
+      .catch(() => {
         toast.error("Google login failed!");
       })
       .finally(() => setLoading(false));
+  };
+
+  // ✅ DEMO USER AUTO FILL
+  const handleDemoUser = () => {
+    setValue("email", "demo@plateshare.com");
+    setValue("password", "Demo@123");
   };
 
   return (
@@ -67,7 +77,7 @@ const Login = () => {
           Welcome Back
         </motion.h2>
 
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSubmit(handleLogin)}>
           {/* Email */}
           <motion.div
             variants={fadeUp}
@@ -86,10 +96,14 @@ const Login = () => {
                 type="email"
                 placeholder="Enter your email"
                 className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-primary outline-none"
-                required
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email", { required: "Email is required" })}
               />
             </div>
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email.message}
+              </p>
+            )}
           </motion.div>
 
           {/* Password */}
@@ -110,8 +124,7 @@ const Login = () => {
                 type={showPass ? "text" : "password"}
                 placeholder="Enter your password"
                 className="w-full pl-10 pr-12 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-primary outline-none"
-                required
-                onChange={(e) => setPassword(e.target.value)}
+                {...register("password", { required: "Password is required" })}
               />
               <button
                 type="button"
@@ -121,6 +134,11 @@ const Login = () => {
                 {showPass ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password.message}
+              </p>
+            )}
           </motion.div>
 
           {/* Login Button */}
@@ -135,7 +153,15 @@ const Login = () => {
             Login
           </motion.button>
         </form>
-        
+
+        {/* DEMO USER BUTTON */}
+        <button
+          onClick={handleDemoUser}
+          className="w-full mt-3 py-3 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium"
+        >
+          Auto Fill Demo User
+        </button>
+
         <div className="flex items-center my-6 opacity-60">
           <span className="grow border-b"></span>
           <span className="mx-3 text-gray-500 dark:text-gray-300 text-sm">OR</span>
