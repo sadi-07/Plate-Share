@@ -14,7 +14,8 @@ const FoodCard = ({ food }) => {
     expire_date,
     donators_name,
     donators_image,
-    _id
+    _id,
+    additional_notes
   } = food;
 
   const handleViewDetails = () => {
@@ -45,6 +46,9 @@ const FoodCard = ({ food }) => {
           <p className="text-sm text-gray-600">By <span className="font-semibold text-lg">{donators_name}</span></p>
         </div>
 
+        <p className="text-base">
+          <span className="font-semibold">Description:</span> {additional_notes}
+        </p>
         <p className="text-base">
           <span className="font-semibold">Quantity:</span> {food_quantity}
         </p>

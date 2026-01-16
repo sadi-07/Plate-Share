@@ -38,10 +38,10 @@ const FeatureFoods = () => {
     
 
     const handleViewDetails = (id) => {
-    if (!user) {
-        navigate("/login", { state: { from: `/foods/${id}` } });
-        return;
-    }
+    // if (!user) {
+    //     navigate("/login", { state: { from: `/foods/${id}` } });
+    //     return;
+    // }
     navigate(`/foods/${id}`);
 };
 
@@ -63,14 +63,14 @@ const FeatureFoods = () => {
 
                 {err && (
                     <div className="text-center text-red-500">
-                        <p>Failed to load featured foods: {err}</p>
+                        <p>Refresh the page to reload.....</p>
                     </div>
                 )}
 
                 {!loading && !err && (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {items.map((food) => (
-                            <article key={food._id} className="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition">
+                            <article key={food._id} className="bg-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition hover:scale-105">
                                 <div className="h-44 w-full overflow-hidden">
                                     <img src={food.food_image} alt={food.food_name} className="w-full h-full object-cover" />
                                 </div>
@@ -86,6 +86,7 @@ const FeatureFoods = () => {
                                         </div>
                                     </div>
 
+                                    <p className="text-sm text-gray-700"><span className="font-semibold">Description:</span> {food.additional_notes}</p>
                                     <p className="text-sm text-gray-700"><span className="font-semibold">Qty:</span> {food.food_quantity}</p>
                                     <p className="text-sm text-gray-700"><span className="font-semibold">Pickup:</span> {food.pickup_location}</p>
                                     <p className="text-sm text-gray-700"><span className="font-semibold">Expires:</span> {food.expire_date}</p>

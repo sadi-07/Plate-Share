@@ -130,7 +130,7 @@ const FoodDetails = () => {
             </div>
 
             <div className="bg-gray-50 p-4 rounded-lg border">
-              <h3 className="font-semibold text-gray-700 mb-1">Additional Notes:</h3>
+              <h3 className="font-semibold text-gray-700 mb-1">Description:</h3>
               <p className="text-gray-800">{additional_notes}</p>
             </div>
           </div>

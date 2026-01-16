@@ -68,10 +68,10 @@ const router = createBrowserRouter([
       },
       {
         path: "/foods/:id",
-        element: (
-          <PrivateRoute>
-            <FoodDetails />
-          </PrivateRoute>
+        element: ( <FoodDetails />
+          // <PrivateRoute>
+          //   <FoodDetails />
+          // </PrivateRoute>
         ),
         loader: ({ params }) => fetch(`https://plate-share-server-blue.vercel.app/foods/${params.id}`)
       },
