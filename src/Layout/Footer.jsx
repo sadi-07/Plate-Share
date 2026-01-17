@@ -8,8 +8,8 @@ import { Link } from 'react-router';
 const Footer = () => {
     return (
         <div className=''>
-            <div className='bg-primary'>
-                <footer className="footer sm:footer-horizontal text-gray-100 p-10 max-w-7xl mx-auto px-4 md:px-0">
+            <div className='bg-gray-900'>
+                <footer className="footer md:footer-horizontal text-gray-100 p-10 max-w-7xl mx-auto px-4 md:px-0">
 
                     <aside>
                         <img className='h-20 w-22' src={logo} alt="" />
@@ -57,6 +57,10 @@ const Footer = () => {
                                 <FaEarthAsia></FaEarthAsia>
                             </Link>
                         </div>
+                        <h3 className="text-2xl font-semibold text-gray-100 mt-5">Contact</h3>
+                        <h2 className='text-base'>support@plateshare.com</h2>
+                        <h2 className='text-base'>01612117307</h2>
+                        <h2 className='text-base'>Hathazari, Chittagong-4330.</h2>
                     </nav>
 
                 </footer>

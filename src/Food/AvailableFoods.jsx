@@ -82,7 +82,7 @@ const AvailableFoods = () => {
                             setSearch(e.target.value);
                             setCurrentPage(1);
                         }}
-                        className="input input-bordered ml-12 w-100"
+                        className="input ml-12 w-100 focus:ring-0 border outline-none"
                     />
                 </div>
 
@@ -92,7 +92,7 @@ const AvailableFoods = () => {
                     <select
                         value={sortQty}
                         onChange={(e) => setSortQty(e.target.value)}
-                        className="select select-bordered ml-12 w-52"
+                        className="select select-bordered ml-12 w-52 outline-none focus:ring-0"
                     >
                         <option value="">Sort by Quantity</option>
                         <option value="asc">Low → High</option>
@@ -111,7 +111,7 @@ const AvailableFoods = () => {
                             setFromDate(e.target.value);
                             setCurrentPage(1);
                         }}
-                        className="input input-bordered"
+                        className="input outline-none focus:ring-0"
                     />
 
                     <span className="font-semibold">to</span>
@@ -123,7 +123,7 @@ const AvailableFoods = () => {
                             setToDate(e.target.value);
                             setCurrentPage(1);
                         }}
-                        className="input input-bordered"
+                        className="input outline-none focus:ring-0"
                     />
                 </div>
             </div>

@@ -36,7 +36,7 @@ const Support = () => {
           ))}
         </div>
 
-        <div className="mt-10 p-6 rounded-xl shadow outline-primary ">
+        <div className="mt-10 p-6 rounded-xl shadow outline-primary border-3 border-gray-900">
           <p className="text-2xl font-bold text-gray-500">
             Contact Support
           </p>

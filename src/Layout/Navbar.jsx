@@ -22,8 +22,8 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/faqs" className={({ isActive }) => isActive ? "text-primary font-semibold" : ""}>
-          FAQs
+        <NavLink to="/blog" className={({ isActive }) => isActive ? "text-primary font-semibold" : ""}>
+          Blogs
         </NavLink>
       </li>
     </>

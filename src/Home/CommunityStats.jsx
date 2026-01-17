@@ -39,7 +39,7 @@ const CommunityStats = () => {
 
   return (
     <div>
-        <section className="px-6 py-20">
+        <section className="px-6 py-10 mt-10">
       <h2
         //data-aos="fade-up"
         className="text-4xl md:text-5xl font-extrabold text-center text-primary mb-12">
