@@ -54,7 +54,7 @@ const Login = () => {
       .finally(() => setLoading(false));
   };
 
-  // ✅ DEMO USER AUTO FILL
+  
   const handleDemoUser = () => {
     setValue("email", "demo@plateshare.com");
     setValue("password", "Demo@123");

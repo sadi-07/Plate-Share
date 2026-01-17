@@ -23,7 +23,7 @@ const NewsLetter = () => {
   };
 
   return (
-    <section className="px-6 py-20 bg-gray-200/50 rounded-2xl">
+    <section className="px-6 py-20 bg-gray-300/50 rounded-2xl">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

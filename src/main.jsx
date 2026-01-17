@@ -26,6 +26,10 @@ import { Contact } from 'lucide-react';
 import Privacy from './Pages/Privacy.jsx';
 import Support from './Pages/Support.jsx';
 import Blog from './Pages/Blog.jsx';
+import DashboardLayout from './Layout/DashboardLayout.jsx';
+import DashboardHome from './Dashboard/DashboardHome.jsx';
+import MyProfile from './Layout/MyProfile.jsx';
+import EditProfile from './Layout/EditProfile.jsx';
 
 AOS.init();
 
@@ -72,21 +76,10 @@ const router = createBrowserRouter([
         element: <Register></Register>
       },
       {
-        path: "/addFood",
-        element: (
-          <PrivateRoute>
-            <AddFood />
-          </PrivateRoute>
-        ),
+        path: "/profile",
+        element: <MyProfile></MyProfile>
       },
-      {
-        path: "/myFoods",
-        element: (
-          <PrivateRoute>
-            <MyFoods />
-          </PrivateRoute>
-        ),
-      },
+      
       {
         path: "/foods/:id",
         element: ( <FoodDetails />
@@ -104,14 +97,31 @@ const router = createBrowserRouter([
           </PrivateRoute>
         )
       },
-      {
-        path: "/myFoodRequests",
-        element: (
-          <PrivateRoute>
-            <MyFoodRequest />
-          </PrivateRoute>
-        ),
-      },
+
+      // {
+      //   path: "/addFood",
+      //   element: (
+      //     <PrivateRoute>
+      //       <AddFood />
+      //     </PrivateRoute>
+      //   ),
+      // },
+      // {
+      //   path: "/myFoods",
+      //   element: (
+      //     <PrivateRoute>
+      //       <MyFoods />
+      //     </PrivateRoute>
+      //   ),
+      // },
+      // {
+      //   path: "/myFoodRequests",
+      //   element: (
+      //     <PrivateRoute>
+      //       <MyFoodRequest />
+      //     </PrivateRoute>
+      //   ),
+      // },
       {
         path: "*",
         element: <Error404></Error404>,
@@ -119,6 +129,38 @@ const router = createBrowserRouter([
 
     ]
   },
+
+  {
+  path: "/dashboard",
+  element: (
+    <PrivateRoute>
+      <DashboardLayout />
+    </PrivateRoute>
+  ),
+  children: [
+    {
+      index: true,
+      element: <DashboardHome />
+    },
+    {
+      path: "add-food",
+      element: <AddFood />
+    },
+    {
+      path: "my-foods",
+      element: <MyFoods />
+    },
+    {
+      path: "my-requests",
+      element: <MyFoodRequest />
+    },
+    {
+      path: "edit-profile",
+      element: <EditProfile></EditProfile>
+    }
+  ]
+},
+
 ]);
 
 createRoot(document.getElementById('root')).render(

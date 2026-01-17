@@ -42,7 +42,7 @@ const UpdateFood = () => {
           title: "Not allowed",
           text: "You are not allowed to edit this item.",
           confirmButtonText: "Go Back",
-        }).then(() => navigate("/myFoods"));
+        }).then(() => navigate("/dashboard/my-foods"));
       }
     }
   }, [loading, food, user, navigate]);
@@ -80,10 +80,10 @@ const UpdateFood = () => {
 
       if (res.ok && (result.modifiedCount === 1 || result.acknowledged)) {
         toast.success("Food updated successfully!");
-        navigate("/myFoods");
+        navigate("/dashboard/my-foods");
       } else {
         toast.success("Food updated!");
-        navigate("/myFoods");
+        navigate("/dashboard/my-foods");
       }
     } catch (err) {
       console.error(err);
@@ -239,7 +239,7 @@ const UpdateFood = () => {
 
               <button
                 type="button"
-                onClick={() => navigate("/myFoods")}
+                onClick={() => navigate("/dashboard/my-foods")}
                 className="btn btn-ghost bg-gray-300 px-4 py-2"
               >
                 Cancel

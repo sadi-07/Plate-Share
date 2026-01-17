@@ -8,25 +8,25 @@ const ITEMS_PER_PAGE = 6;
 const AvailableFoods = () => {
     const foods = useLoaderData();
 
-    // 🔹 States
+    
     const [search, setSearch] = useState("");
     const [sortQty, setSortQty] = useState("");
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
 
-    // 🔹 Search + Filter + Sort
+    
     const processedFoods = useMemo(() => {
         let data = [...foods];
 
-        // 🔍 Search by food name
+        
         if (search) {
             data = data.filter(food =>
                 food.food_name.toLowerCase().includes(search.toLowerCase())
             );
         }
 
-        // 📅 Expiry date range filter
+        
         if (fromDate) {
             data = data.filter(
                 food => new Date(food.expire_date) >= new Date(fromDate)
@@ -39,7 +39,7 @@ const AvailableFoods = () => {
             );
         }
 
-        // 🔃 Sort by quantity
+        
         if (sortQty === "asc") {
             data.sort((a, b) => a.food_quantity - b.food_quantity);
         }
@@ -51,7 +51,7 @@ const AvailableFoods = () => {
         return data;
     }, [foods, search, fromDate, toDate, sortQty]);
 
-    // 🔢 Pagination
+    
     const totalPages = Math.ceil(processedFoods.length / ITEMS_PER_PAGE);
     const paginatedFoods = processedFoods.slice(
         (currentPage - 1) * ITEMS_PER_PAGE,
@@ -68,7 +68,7 @@ const AvailableFoods = () => {
                 </span>
             </h2>
 
-            {/* 🔧 Controls */}
+            
             <div className="flex flex-wrap gap-4 mb-10 items-center bg-base-200 p-4 rounded-lg shadow">
 
                 {/* Search */}
